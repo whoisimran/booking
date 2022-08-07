@@ -23,6 +23,8 @@ const Profile = () => {
         {data && data.map((value,index)=>{
             let obj = JSON.parse(value.facility);
             const description = value.description.split(' ').slice(0, 15).join(' ');
+            if(value.status == 'available'){
+
             return (
                 <div className="card2 mb-3 mt-5" style={{ maxWidth: "740px" }}>
                     <div className="row no-gutters">
@@ -48,6 +50,7 @@ const Profile = () => {
                     </div>
                 </div>
             )
+        }
           })}
       </div>
   )

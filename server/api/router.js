@@ -1,4 +1,4 @@
-const {create_user,login,getuser,getuserbyid,create_room,getroom,getroombyid,create_booking,getbooking,getbookingbyid} = require('./controller');
+const {create_user,login,getuser,getuserbyid,create_room,getroom,getroombyid,roomupdatebyid,create_booking,getbooking,getbookingbyid,bookingupdatebyid} = require('./controller');
 const Router = require('express').Router();
 
 // ########### Create a User API #############
@@ -22,6 +22,9 @@ Router.get('/api/room',getroom);
 // ########### Get  Room By Id  #############
 Router.get('/api/room/:id',getroombyid);
 
+// ########### Update  Room By Id  #############
+Router.patch('/api/room/:id',roomupdatebyid);
+
 // ########### Create a Booking API  #############
 Router.post('/api/booking',create_booking);
 
@@ -31,6 +34,10 @@ Router.get('/api/booking',getbooking);
 
 // ########### Get Booking By user Id API  #############
 Router.get('/api/booking/:user_id',getbookingbyid);
+
+
+// ########### Update booking by room Id  #############
+Router.patch('/api/booking/:room_id',bookingupdatebyid);
 
 // Router.post('/api/comments',createComment);
 

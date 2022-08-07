@@ -1,9 +1,10 @@
 import React,{useState,useEffect} from 'react'
-import {useLocation } from 'react-router-dom';
+import {useLocation,useNavigate } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 
 
 const Payment = () => {
+    const navigate = useNavigate();
     const user_id = localStorage.getItem('id');
     const location = useLocation();
     let id = location.state.id;
@@ -50,8 +51,26 @@ const Payment = () => {
 
               let res2 = await response2.json();
               console.log('booking',res2)
-    }
+              if(res2.success){
 
+                let response3 = await fetch(`http://localhost:8080/api/room/${data._id}`,{
+                method: "PATCH",
+                headers:{
+                  'Access-Control-Allow-Origin': '*',
+                  'Content-Type': 'application/json'
+                },
+                body : JSON.stringify({status:"Booked"})
+              });
+              let res3 = await response3.json();
+              if(res2.success){
+                navigate('/booking')
+              }else{
+                alert('something went wrong!')
+              }  
+              }else{
+                alert('Something went wrong!')
+            }
+    }
 
   return (
     <div className='container'>

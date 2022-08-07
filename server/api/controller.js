@@ -1,4 +1,4 @@
-const {create_user,login,getuser, getuserbyid,create_room,create_booking,getroom,getroombyid,getbooking,getbookingbyid} = require('./service');
+const {create_user,login,getuser, getuserbyid,create_room,create_booking,getroom,getroombyid,roomupdatebyid,getbooking,getbookingbyid,bookingupdatebyid} = require('./service');
 
 module.exports = {
     create_user: (req,res,next)=>{  
@@ -107,6 +107,23 @@ module.exports = {
         })
 
     },
+    roomupdatebyid: (req,res)=>{
+        let id = req.params.id;
+        let body = req.body;
+        body.id = id;
+        roomupdatebyid(body,(err,result)=>{
+            if(err){
+                res.status(400).json({success:false,message:err})
+            }else{
+                if(!result){
+                    res.status(400).json({success:false,message:false})
+                }else{
+                res.status(200).json({success:true, message:result})
+
+                }
+            }
+        })
+    },    
     getbooking: (req,res)=>{
         getbooking((err,result)=>{
             if(err){
@@ -124,7 +141,7 @@ module.exports = {
                 res.status(400).json({success:false,message:err})
             }else{
                 if(!result){
-                    res.status(400).json({success:false,message:'Blog Not found'})
+                    res.status(400).json({success:false,message:false})
                 }else{
                 res.status(200).json({success:true, message:result})
 
@@ -132,6 +149,23 @@ module.exports = {
             }
         })
 
+    },
+    bookingupdatebyid: (req,res)=>{
+        let id = req.params.room_id;
+        let body = req.body;
+        body.id = id;
+        bookingupdatebyid(body,(err,result)=>{
+            if(err){
+                res.status(400).json({success:false,message:err})
+            }else{
+                if(!result){
+                    res.status(400).json({success:false,message:false})
+                }else{
+                res.status(200).json({success:true, message:result})
+
+                }
+            }
+        })
     },
     // blogupdatebyid: (req,res)=>{
     //     let id = req.params.id;

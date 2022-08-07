@@ -87,6 +87,15 @@ module.exports = {
             }
         })
     },
+     roomupdatebyid: (data,callback)=>{
+        rooms.findByIdAndUpdate(data.id,data,(err,result)=>{
+            if(err){
+                return callback(null, err)
+            }else{
+                return callback(null,result)
+            }
+        })
+    },
     getbooking: (callback)=>{
         bookings.find((err,result)=>{
             if(err){
@@ -104,7 +113,16 @@ module.exports = {
                 return callback(null,result);
             }
         })
-    }
+    },
+    bookingupdatebyid: (data,callback)=>{
+        bookings.findByIdAndUpdate(data.id,data,(err,result)=>{
+            if(err){
+                return callback(null, err)
+            }else{
+                return callback(null,result)
+            }
+        })
+    },
     // blogupdatebyid: (data,callback)=>{
     //     blogs.findByIdAndUpdate(data.id,data,(err,result)=>{
     //         if(err){

@@ -13,6 +13,8 @@ import User from './components/User';
 import Profile from './components/Profile';
 import Payment from './components/Payment';
 import './App.css';
+import Booking_list from './components/Booking_list';
+import Booking from './components/Booking';
 
 let role = localStorage.getItem('role');
 
@@ -42,6 +44,12 @@ function App() {
     </Route>
     <Route element={<Withnav role={role}/>}>
       <Route exact path='/payment' element={< Payment />} />
+    </Route>
+    <Route element={<Withnav role={role}/>}>
+      <Route exact path='/booking_list' element={< Booking_list />} />
+    </Route>
+    <Route element={<Withnav role={role}/>}>
+      <Route exact path='/booking' element={< Booking/>} />
     </Route>
 {/* 
     <Route element={<Withnav />}>

@@ -19,7 +19,11 @@ const Login = () => {
         if (res.success) {
           localStorage.setItem('id', res.message._id);
           localStorage.setItem('role', res.message.role);
-          navigate('/home');
+          if(res.message.role == 'admin'){
+            navigate('/home');
+          }else{
+            navigate('/profile');
+          }
         } else {
           alert('Invalid Login Details!');
         }

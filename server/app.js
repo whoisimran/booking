@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const stripe = require('stripe')('sk_test_51JtRscSJHOjmNjIWtWPvdY0KSLkyRZup0AL4VxzriCosNy4eECIreMg0p9IT0KbOLJdoW1TlzLvOkRJPk03SwBeM00ytOOpMoT');
 const Router = require('./api/router')
 const uuid = require('uuid').v4
+const payments = require('./database/payment')
 
 const port = 8080
 
@@ -73,21 +74,24 @@ app.post('/checkout',async(req,res)=>{
        let customer_json = JSON.stringify(customer);
        let charge_json = JSON.stringify(charge)
        console.log(charge);
-       res.status(200).json({success:true,message:charge})
  
-    //    let payment = new payments({userId:product.a_Id,customer:customer_json,charge:charge_json});
-    //    payment.save((err, result) => {
-    //          if(!err){
+       let payment = new payments({token_id:charge.id,room_id:product._id,customer:customer_json,charge:charge_json,status:charge.status,receipt_url:charge.receipt_url});
+       payment.save((err, result) => {
+             if(!err){
+                res.status(200).json({success:true,message:charge})
                 
-    //          }    
-    //          else{
+             }    
+             else{
+              res.status(400).json({success:false,message:err})
               
-    //          }    
-    //      });
+             }    
+         });
  
     }catch(error){
-       console.error("Error:", error);
+      //  console.error("Error:", error);
     //    status = "failure";
+    res.status(400).json({success:false,message:error})
+
     }
  
     // res.json({ error, status });

@@ -1,42 +1,38 @@
 const mongoose = require('mongoose');
 
-let room = new mongoose.Schema({
- 
-    title:{
+let payment = new mongoose.Schema({
+    token_id:{
         type: String,
         required: true
     },
-    description:{
+    room_id:{
         type: String,
         required: true
     },
-    type:{
+    customer:{
         type: String,
-        require: true
+        require : true
     },
-    price:{
+    charge:{
+        type: String,
+        require : true
+    }, 
+    status:{
         type: String,
         required: true
-    },    
-    facility:{
-        type: String,
-        required: true
     },
-    image:{
+    receipt_url:{
         type: String,
         required: true
     },
     date: {
         type: String,
         default: Date.now()
-    },
-    status: {
-        type: String,
-        default: 'available'
     }
 
 });
 
-const rooms = mongoose.model("rooms", room);
 
-module.exports = rooms;
+const payments = mongoose.model("payments", payment);
+
+module.exports = payments;
